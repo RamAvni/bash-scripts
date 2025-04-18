@@ -27,7 +27,7 @@ get_temperature_color() {
 
 print_status_message() (
   printf "${peak_color}Peak: ${peak} ${low_color}Low: ${low} ${color_reset}\n"
-  printf "After $seconds_passed seconds, GPU's Temperature is: $temp"
+  printf "After $seconds_passed seconds, GPU's Temperature is: $temperature"
 )
 
 bye() {
@@ -37,7 +37,7 @@ bye() {
   printf "${pink_color}Bye! ;) ${color_reset}"
 }
 
-function main() {
+main() {
   seconds_passed=0
   peak=0
   low=0
@@ -50,12 +50,10 @@ function main() {
 
   while true; do
     clear
-    temp=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader)
-    if [ $low -eq 0 ]; then
-      low=$temp
-    fi
+    temperature=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader)
+    if [ $low -eq 0 ]; then low=$temperature; fi
 
-    assign_edges $temp
+    assign_edges $temperature
 
     print_status_message
 
