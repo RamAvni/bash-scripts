@@ -1,6 +1,8 @@
 #!/bin/bash
 
 assign_edges() {
+  if [ $low -eq 0 ]; then low=$1; fi
+
   if [ $1 -gt $peak ]; then
     peak=$1
   elif [ $1 -lt $low ]; then
@@ -51,7 +53,6 @@ main() {
   while true; do
     clear
     temperature=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader)
-    if [ $low -eq 0 ]; then low=$temperature; fi
 
     assign_edges $temperature
 
