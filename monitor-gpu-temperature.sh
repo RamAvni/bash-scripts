@@ -44,13 +44,13 @@ main() {
   peak=0
   low=0
 
-  color_reset=$(get_temperature_color "reset")
-  peak_color=$(get_temperature_color "$peak")
-  low_color=$(get_temperature_color "$low")
-
   trap bye EXIT
 
   while true; do
+    color_reset=$(get_temperature_color "reset")
+    peak_color=$(get_temperature_color "$peak")
+    low_color=$(get_temperature_color "$low")
+
     clear
     temperature=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader)
 
